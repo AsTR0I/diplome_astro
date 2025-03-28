@@ -1,0 +1,282 @@
+// Variables
+@import 'variables';
+
+@import '~vuetify/dist/vuetify.min.css';
+
+html, body {
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+}
+
+.theme--cocobri.theme--light.v-application {
+  background: #f5f5f5;
+}
+.theme--cocobri .theme--light.v-navigation-drawer {
+  background: #f5f5f5;
+}
+
+/* navigation */
+.v-list--dense .v-list-item .v-list-item__subtitle,
+.v-list--dense .v-list-item .v-list-item__title,
+.v-list-item--dense .v-list-item__subtitle,
+.v-list-item--dense .v-list-item__title {
+  font-size: 0.929rem;
+}
+
+.v-list--nav.v-list--dense .v-list-item:not(:last-child):not(:only-child),
+.v-list--nav .v-list-item--dense:not(:last-child):not(:only-child),
+.v-list--rounded.v-list--dense .v-list-item:not(:last-child):not(:only-child),
+.v-list--rounded .v-list-item--dense:not(:last-child):not(:only-child) {
+  margin-bottom: 2px !important;
+}
+.v-list-group .v-list-group__header .v-list-item__icon.v-list-group__header__append-icon {
+  min-width: 24px !important;
+}
+.theme--transparent.v-list-item:hover:before,
+.theme--transparent.v-list-item--active:before,
+.theme--transparent.v-list-item--active:hover:before,
+.theme--transparent.v-list-item:focus:before {
+  opacity: 0;
+}
+
+/* используется в таблицах */
+.v-list-item--table {
+  display: inline-flex;
+  display: inline-flexbox;
+  padding: 0;
+  .v-list-item__content {
+    padding: 0;
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+  }
+}
+
+.v-pagination__item,
+.v-pagination__navigation {
+  outline: none;
+}
+
+/* table */
+.v-data-table > .v-data-table__wrapper > table > tbody > tr > td,
+.v-data-table > .v-data-table__wrapper > table > tfoot > tr > td,
+.v-data-table > .v-data-table__wrapper > table > thead > tr > td {
+  font-size: 1rem;
+}
+.v-data-table > .v-data-table__wrapper tbody tr.v-data-table__expanded__content {
+  box-shadow: none;
+}
+.v-data-table > .v-data-table__wrapper .v-data-table__mobile-row {
+  min-height: 32px;
+}
+.theme--transparent.v-data-table {
+  background-color: transparent !important;
+}
+
+// .v-data-table--xx-small > .v-data-table__wrapper > table > tbody > tr > th,
+.v-data-table--xx-small > .v-data-table__wrapper > table > tbody > tr > td,
+// .v-data-table--xx-small > .v-data-table__wrapper > table > tfoot > tr > th,
+.v-data-table--xx-small > .v-data-table__wrapper > table > tfoot > tr > td,
+// .v-data-table--xx-small > .v-data-table__wrapper > table > thead > tr > th ,
+.v-data-table--xx-small > .v-data-table__wrapper > table > thead > tr > td {
+  font-size: .875rem;
+  height: 22px;
+}
+.v-data-table--xx-small > .v-data-table__wrapper > table > tbody > tr > th,
+.v-data-table--xx-small > .v-data-table__wrapper > table > tbody > tr > td,
+.v-data-table--xx-small > .v-data-table__wrapper > table > tfoot > tr > th,
+.v-data-table--xx-small > .v-data-table__wrapper > table > tfoot > tr > td,
+.v-data-table--xx-small > .v-data-table__wrapper > table > thead > tr > th ,
+.v-data-table--xx-small > .v-data-table__wrapper > table > thead > tr > td {
+  padding: 0 8px;
+}
+
+/* form */
+.v-input,
+.v-label {
+  font-size: 1rem !important;
+}
+.v-text-field .v-label--active {
+  -webkit-transform: translateY(-18px) scale(0.86) !important;
+    transform: translateY(-18px) scale(0.86) !important;
+}
+
+/* accordion */
+.v-expansion-panel-content--full .v-expansion-panel-content__wrap {
+  padding: 0;
+}
+.v-expansion-panel--small {
+  .v-expansion-panel-header {
+    padding: 1rem;
+  }
+  .v-expansion-panel-content__wrap {
+    padding: 0 1rem 1rem;
+  }
+}
+
+.dz-clickable.dz-custom {
+  .theme--light.v-sheet {
+    background-color: #eee !important;
+    border-color: #eee !important;
+  }
+  .material-icons {
+    color: #e0e0e0 !important;
+    caret-color: #e0e0e0 !important;
+  }
+  &.dz-drag-hover {
+    .theme--light.v-sheet {
+      background-color: #e8f5e9 !important;
+      border-color: #e8f5e9 !important;
+    }
+    .material-icons {
+      color: #4caf50 !important;
+      caret-color: #4caf50 !important;
+    }
+  }
+}
+
+.v-chip.v-size--xx-small {
+  border-radius: 2px !important;
+  font-size: .875rem;
+  height: 14px;
+}
+
+.ladder {
+  .ladder-event-td {
+    border-left: thin solid rgba(0, 0, 0, .12);
+    .ladder-event {
+      position: relative;
+      .ladder-event__arrow-body {
+        background-color: rgba(0, 0, 0, .54);
+        height: 1px;
+        width: 24px;
+        position: absolute;
+        &--left {
+          left: -24px;
+        }
+        &--right {
+          right: -24px;
+        }
+        &--success {
+          background-color: #4caf50 !important;
+        }
+        &--error {
+          background-color: #ff5252 !important;
+        }
+      }
+    }
+  }
+}
+.qos-table {
+  th.border-left,
+  td.border-left {
+    border-left: thin solid rgba(0, 0, 0, .12);
+  }
+}
+
+.marker--dot {
+  background-color: rgba(0, 0, 0, .12);
+  border-radius: 50%;
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+}
+
+.packets-loss-marker {
+  background-color: #4CAF50;
+  border-radius: 50%;
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+}
+
+.v-dialog--scrollable {
+  .app-scrollable {
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    flex: 1 1 auto;
+    overflow-y: auto;
+    .app-scrollable__section {
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+      height: calc(100vh - 200px);
+      overflow-y: auto;
+      position: relative;
+    }
+  }
+}
+
+.v-application {
+  .app-task-list {
+    .app-task-list__main-row,
+    .app-task-list__extra-row {
+      &.app-task-list--purple {
+        background: lighten(#F3E5F5, 3) !important;
+        &:hover {
+          background: lighten(#F3E5F5, 3) !important;
+        }
+      }
+      &.app-task-list--green {
+        background: lighten(#E8F5E9, 3) !important;
+        &:hover {
+          background: lighten(#E8F5E9, 3) !important;
+        }
+      }
+      &.app-task-list--blue {
+        background: lighten(#E3F2FD, 3) !important;
+        &:hover {
+          background: lighten(#E3F2FD, 3) !important;
+        }
+      }
+      &.app-task-list--orange {
+        background: lighten(#FFF3E0, 3) !important;
+        &:hover {
+          background: lighten(#FFF3E0, 3) !important;
+        }
+      }
+    }
+    .app-task-list__main-row td {
+      border-bottom: none !important;
+    }
+    .app-task-list__extra-row td {
+      border-bottom: thin solid rgba(0,0,0,.12);
+    }
+    .app-task-list__comment p:last-child {
+      margin-bottom: 0;
+    }
+  }
+  .app-comment-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    .app-comment {
+      margin-top: 12px;
+    }
+    .app-comment:last-child {
+      margin-bottom: 12px;
+    }
+    .app-comment p:last-child {
+      margin-bottom: 0;
+    }
+  }
+  .app-task-sticky {
+    position: sticky;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+}
+
+.map-cluster {
+  background-color: #1976d2 ;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  height: 50px;
+  color: #fff;
+  border-radius: 100%;
+  cursor: pointer;
+  text-align: center;
+}

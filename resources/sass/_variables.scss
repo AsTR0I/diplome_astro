@@ -1,0 +1,14 @@
+// Typography
+$font-family-sans-serif: 'Roboto', sans-serif;
+
+// Globals
+$font-size-root: 14px;
+
+$alert-font-size: 1rem;
+
+// Variables must come before the import
+$list-item-title-font-size: 1rem;
+$list-item-dense-title-font-size: 0.929rem;
+
+@import '~vuetify/src/components/VAlert/_variables.scss';
+@import '~vuetify/src/components/VList/_variables.scss';
