@@ -66,11 +66,11 @@ export default {
         },
         getStatusIcon(item) {
             if (item.disposition === 'ANSWERED') {
-                return 'mdi-call-received';
+                return 'call-received';
             } else if (item.disposition === 'BUSY') {
-                return 'mdi-phone-alert';
+                return 'phone-alert';
             } else {
-                return 'mdi-call-missed';
+                return 'call-missed';
             }
         },
         getStatusText(item) {

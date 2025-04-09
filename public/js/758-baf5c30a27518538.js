@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunk=self.webpackChunk||[]).push([[758],{758:(n,s,e)=>{e.r(s),e.d(s,{default:()=>t});const l={name:"Dashboard"};const t=(0,e(486).A)(l,(function(){return(0,this._self._c)("div",[this._v("\n    dashboard\n")])}),[],!1,null,null,null).exports}}]);

@@ -1,14 +1,14 @@
 /*!
- * The buffer module from node.js, for the browser.
- *
- * @author   Feross Aboukhadijeh <http://feross.org>
- * @license  MIT
- */
-
-/*!
  * Vue.js v2.7.16
  * (c) 2014-2023 Evan You
  * Released under the MIT License.
+ */
+
+/*!
+ * clipboard.js v2.0.11
+ * https://clipboardjs.com/
+ *
+ * Licensed MIT © Zeno Rocha
  */
 
 /*!
@@ -26,8 +26,6 @@
 /*! ../../../mixins/colorable */
 
 /*! ../../../mixins/localable */
-
-/*! ../../../mixins/mouse */
 
 /*! ../../../mixins/themeable */
 
@@ -108,8 +106,6 @@
 /*! ../../mixins/menuable */
 
 /*! ../../mixins/mobile */
-
-/*! ../../mixins/mouse */
 
 /*! ../../mixins/overlayable */
 
@@ -557,8 +553,6 @@
 
 /*! ./VItem */
 
-/*! ./VItem.sass */
-
 /*! ./VItemGroup */
 
 /*! ./VItemGroup.sass */
@@ -925,6 +919,8 @@
 
 /*! ./monthChange */
 
+/*! ./mouse */
+
 /*! ./mutate */
 
 /*! ./nl */
@@ -1002,6 +998,17 @@
 /*! ./zh-Hans */
 
 /*! ./zh-Hant */
+
+/*! Moment Duration Format v2.2.2
+ *  https://github.com/jsmreese/moment-duration-format
+ *  Date: 2018-02-16
+ *
+ *  Duration format plugin function for the Moment.js library
+ *  http://momentjs.com/
+ *
+ *  Copyright 2018 John Madhavan-Reese
+ *  Released under the MIT license
+ */
 
 /*! exports provided: Application */
 
@@ -1287,11 +1294,7 @@
 
 /*! exports provided: weekNumber, isLeapYear */
 
-/*! ieee754. BSD-3-Clause License. Feross Aboukhadijeh <https://feross.org/opensource> */
-
 /*! no static exports found */
-
-/*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */
 
 /*! vue */
 
@@ -1522,10 +1525,6 @@
 /*!*********************************!*\
   !*** ./src/directives/index.ts ***!
   \*********************************/
-
-/*!***********************************!*\
-  !*** ./src/mixins/mouse/index.ts ***!
-  \***********************************/
 
 /*!***********************************!*\
   !*** ./src/services/goto/util.ts ***!
@@ -2400,10 +2399,6 @@
   \**********************************************/
 
 /*!**********************************************!*\
-  !*** ./src/components/VItemGroup/VItem.sass ***!
-  \**********************************************/
-
-/*!**********************************************!*\
   !*** ./src/components/VList/VListGroup.sass ***!
   \**********************************************/
 
@@ -2677,6 +2672,10 @@
 
 /*!**************************************************!*\
   !*** ./src/components/VAppBar/VAppBarNavIcon.ts ***!
+  \**************************************************/
+
+/*!**************************************************!*\
+  !*** ./src/components/VCalendar/mixins/mouse.ts ***!
   \**************************************************/
 
 /*!**************************************************!*\
@@ -3203,3 +3202,17 @@
  * Based on Underscore.js 1.8.3 <http://underscorejs.org/LICENSE>
  * Copyright Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
  */
+
+//! Copyright (c) JS Foundation and other contributors
+
+//! github.com/moment/moment-timezone
+
+//! license : MIT
+
+//! moment-timezone.js
+
+//! moment.js
+
+//! moment.js locale configuration
+
+//! version : 0.5.48

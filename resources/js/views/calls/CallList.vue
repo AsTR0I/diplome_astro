@@ -19,11 +19,12 @@
 
             <v-col cols="auto">
                 <v-btn
-                icon
-                title="Обновить"
-                @click="refresh"
+                    :disabled="loading"
+                    icon
+                    title="Обновить"
+                    @click="refresh"
                 >
-                <v-icon>mdi-refresh</v-icon>
+                <v-icon>refresh</v-icon>
                 </v-btn>
 
             </v-col>
@@ -33,13 +34,53 @@
             :loading="loading"
             class="mb-3"
         >
-            <v-card-text>
-                <v-row>
-                    <v-col cols="12" sm="6">
-                        Тут будут фильтры
-                    </v-col>
-                </v-row>
-            </v-card-text>
+        <v-card-text>
+            <v-row class="my-0">
+                <v-col class="py-0 d-flex align-center" cols="6" sm>
+                    <v-select
+                        class="w-100"
+                        :items="statusItems"
+                        :value="filters.disposition"
+                        :label="'Статус звонка'"
+                        item-value="value"
+                        item-text="text"
+                        @change="changeStatus"
+                        dense
+                        :disabled="loading"
+                        clearable
+                        hide-details
+                    />
+                </v-col>
+                <v-col class="py-0 d-flex align-center" cols="6" sm>
+                    <v-text-field
+                        class="w-100"
+                        :value="filters.src"
+                        :disabled="loading"
+                        label="Кто звонил"
+                        clearable
+                        @input="updateSrcFilter"
+                        dense
+                        hide-details
+                        ref="srcFieldFilter"
+                        @focus="lastChangedField = 'srcFieldFilter'"
+                    />
+                </v-col>
+                <v-col class="py-0 d-flex align-center" cols="6" sm>
+                    <v-text-field
+                        class="w-100"
+                        :value="filters.dst"
+                        :disabled="loading"
+                        label="Кому звонил"
+                        clearable
+                        @input="updateDstFilter"
+                        dense
+                        hide-details
+                        ref="dstFieldFilter"
+                        @focus="lastChangedField = 'dstFieldFilter'"
+                    />
+                </v-col>
+            </v-row>
+        </v-card-text>
 
             <!-- Необходимо для сохранения фокуса -->
             <div class="v-card__progress"></div>
@@ -108,6 +149,8 @@ export default {
     data() {
         return {
             loading: false,
+            loadingTimeout: null,
+            lastChangedField: 'srcFieldFilter',
             calls: {
                 data: [],
                 links: {
@@ -126,6 +169,11 @@ export default {
                     total: 0
                 }
             },
+            statusItems: [
+                { value: 'ANSWERED', text: 'Отвеченный' },
+                { value: 'BUSY', text: 'Занято' },
+                { value: 'NO ANSWER', text: 'Не отвеченный' }
+            ]
         }
     },
 
@@ -134,16 +182,16 @@ export default {
     },
 
     created() {
-        this.fetchData(Object.assign({}, this.filter, {page: this.changePage}));
+        this.fetchData(Object.assign({}, this.filters, {page: this.currentPage}));
     },
 
     methods: {
         ...mapMutations({
             updateSrcFilter: 'updateSrcFilter',
             updateDstFilter: 'updateDstFilter',
-            updateCurrentPage: 'updateCurrentPage'
+            updateCurrentPage: 'updateCurrentPage',
+            updateStatusFilter: 'updateStatusFilter'
         }),
-
         fetchData(params) {
             this.loading = true;
 
@@ -162,18 +210,63 @@ export default {
                 })
                 .finally(() => {
                     this.loading = false;
+                    this.$nextTick(() => {
+                        this.$refs[this.lastChangedField].focus();
+                    });
                 });
         },
-
         changePage(page) {
-            this.fetchData(Object.assign({}, this.filter, {page: page}));
+            this.fetchData(Object.assign({}, this.filters, {page: page}));
             this.updateCurrentPage(page);
             this.$vuetify.goTo('#app');
         },
-
         refresh() {
-            this.fetchData(Object.assign({}, this.filter, {page: this.changePage}));
+            this.fetchData(Object.assign({}, this.filters, {page: this.currentPage}));
+        },
+
+        searchCalls: window._.debounce(function (params) {
+            this.loading = true;
+
+            if (this.loadingTimeout) {
+                clearTimeout(this.loadingTimeout);
+                this.loadingTimeout = null;
+            }
+            this.loadingTimeout = setTimeout(() => {
+                axios.get('calls', { params:  Object.assign(params, { page: 1 })})
+                .then((response) => {
+                    this.calls = response.data;
+                })
+                .catch((error) => {
+                    this.$notify({
+                        group: 'foo',
+                        title: 'Ошибка',
+                        text: 'Ошибка при загрузке данных.',
+                        type: 'error',
+                        position: 'top center'
+                    });
+                })
+                .finally(() => {
+                    this.loading = false;
+                    this.loadingTimeout = null;
+                    this.$nextTick(() => {
+                        this.$refs[this.lastChangedField].focus();
+                    });
+                });
+            }, 1000)
+        }, 750),
+        // filters
+        changeStatus(value) {
+            this.updateStatusFilter(value);
         }
     },
+
+    watch: {
+        filters: {
+            deep: true,
+            handler(params) {
+                this.searchCalls(params);
+            }
+        }
+    }
 }
 </script>

@@ -1,6 +1,7 @@
 <template>
   <v-app class="theme--cocobri">
-    <v-navigation-drawer app floating :clipped="$vuetify.breakpoint.lgAndUp" v-model="drawer" v-if="isAuthenticated">
+
+   <v-navigation-drawer app floating :clipped="$vuetify.breakpoint.lgAndUp" v-model="drawer">
       <v-list nav dense>
         <template v-for="(item, index) in items">
           <!-- group -->
@@ -15,8 +16,9 @@
 
               <v-list-item
                 link
-                 :key="index"
+                :key="index"
                 :to="item.route"
+                v-if="!item.permission || profilePermissions.includes(item.permission)"
               >
                 <v-list-item-content>
                   <v-list-item-title>{{ item.title }}</v-list-item-title>
@@ -32,9 +34,10 @@
               :key="index"
               :to="item.route"
               :exact="item.route.name === 'dashboard'"
+              v-if="!item.permission || profilePermissions.includes(item.permission)"
             >
-              <v-list-item-icon>
-                <v-icon v-if="item.icon">
+              <v-list-item-icon class="icon-24">
+                <v-icon v-if="item.icon" class="icon-24">
                   {{ item.icon }}
                 </v-icon>
                 <span v-else-if="item.iconAlt" v-html="item.iconAlt"
@@ -50,43 +53,73 @@
       </v-list>
     </v-navigation-drawer>
 
-    <v-app-bar app dark color="primary" :clipped-left="$vuetify.breakpoint.lgAndUp">
-      <v-app-bar-nav-icon @click.stop="drawer = !drawer" v-if="isAuthenticated"/>
+    <v-app-bar
+      app
+      dark
+      color="primary"
+      :clipped-left="$vuetify.breakpoint.lgAndUp"
+    >
+      <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
 
       <v-toolbar-title>
-        <router-link class="hidden-sm-and-down white--text" style="text-decoration: none" :to="{ name: 'dashboard' }">
-          ASTRO ATC
+        <router-link
+          class="hidden-sm-and-down white--text"
+          style="text-decoration: none"
+          :to="{ name: 'dashboard' }"
+        >
+          {{ profile.name }}
         </router-link>
       </v-toolbar-title>
 
       <v-spacer />
 
-      <v-spacer />
+      <!-- support -->
+      <div>
+        <v-list-item two-line>
+          <v-list-item-avatar>
+            <v-icon class="lighten-1 blue white--text">
+              call
+            </v-icon>
+          </v-list-item-avatar>
 
-      <form v-if="isAuthenticated">
-        <v-btn icon @click="logoutHandler">
-          <v-icon>mdi-exit-to-app</v-icon>
+          <v-list-item-content>
+            <v-list-item-subtitle>Поддержка 24/7</v-list-item-subtitle>
+            <v-list-item-title>8 800 800 00 00</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+      </div>
+
+      <form method="post" action="/logout">
+        <input
+          type="hidden"
+          name="_token"
+          :value="csrtToken"
+        >
+
+        <v-btn
+          icon
+          type="submit"
+        >
+          <v-icon>exit_to_app</v-icon>
         </v-btn>
       </form>
     </v-app-bar>
 
     <v-main>
       <v-container fluid>
-        <v-slide-x-reverse-transition hide-on-leave>
           <router-view />
-        </v-slide-x-reverse-transition>
       </v-container>
     </v-main>
+
+    <notifications position="bottom center" />
   </v-app>
 </template>
 
 <script>
-import { createNamespacedHelpers } from 'vuex';
-const { mapGetters, mapActions } = createNamespacedHelpers('auth');
-
+// Add a response interceptor
 window.axios.interceptors.response.use(response => response, error => {
   if (error.response && [401, 419].includes(error.response.status)) {
-    this.$router.push({ name: 'login' });
+    window.location.replace('/login');
   }
   return Promise.reject(error);
 });
@@ -96,38 +129,48 @@ export default {
 
   data() {
     return {
-      loading: false,
       drawer: null,
+      profile: window.bootstrap.profile,
       items: [{
-          icon: 'mdi-home',
-          title: 'Главная',
-          route: { name: 'dashboard' }
-        }, {
-          icon: 'mdi-phone-clock',
+        icon: 'home',
+        title: 'Главная',
+        route: { name: 'dashboard'}
+      }, {
+          icon: 'history',
           title: 'История звонков',
           route: { name: 'calls' }
-        },
-      ]
-    }
-  },
-
-  computed: {
-    // Получаем статус авторизации из Vuex
-    ...mapGetters(['isAuthenticated']),
-  },
-
-  methods: {
-    ...mapActions(['logout']),
-    logoutHandler() {
-      this.loading = true;
-      this.logout()
-        .then(() => {
-          this.$router.push({name: 'login'});
-        })
-        .finally(() => {
-          this.loading = false;
-        })
+        }, {
+          icon: 'route',
+          title: 'Диалплан',
+          route: { name: 'dialplans' }
+        }, {
+          icon: 'extension',
+          title: 'Расширения',
+          route: { name: 'extensions' }
+        }, {
+          icon: 'settings',
+          title: 'Система',
+          route: { name: 'system' }
+        },],
+      csrtToken: document.querySelector('meta[name="csrf-token"]').getAttribute('content')
     }
   }
-};
+}
 </script>
+
+<style scoped>
+.icon-24 {
+  min-width: 32px !important; /* стандарт, можно 24 + немного отступа */
+  width: 32px !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon-24 .v-icon {
+  font-size: 24px !important;
+  height: 24px !important;
+  width: 24px !important;
+  line-height: 24px !important;
+}
+</style>
