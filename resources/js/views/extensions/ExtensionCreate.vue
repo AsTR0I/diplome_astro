@@ -104,6 +104,7 @@ export default {
             { text: 'Answer', value: 'Answer' },
             { text: 'Hangup', value: 'Hangup' },
             { text: 'Wait', value: 'Wait' },
+            { text: 'MixMonitor', value: 'MixMonitor'},
             { text: 'Playback', value: 'Playback' },
             { text: 'Background', value: 'Background' },
             { text: 'Goto', value: 'Goto' },

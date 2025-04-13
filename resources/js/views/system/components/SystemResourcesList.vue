@@ -5,19 +5,19 @@
                 <tbody>
                     <tr>
                         <td class="text-left">CPU Info:</td>
-                        <td class="text-right">{{ data.cpu_model }}</td>
+                        <td class="text-right">{{ data.cpu_model ?? 'N/A' }}</td>
                     </tr>
                     <tr>
                         <td class="text-left">Uptime:</td>
-                        <td class="text-right">{{ data.uptime }}</td>
+                        <td class="text-right">{{ data.uptime ?? 'N/A' }}</td>
                     </tr>
                     <tr>
                         <td class="text-left">CPU Speed:</td>
-                        <td class="text-right">{{ data.cpu_speed }}</td>
+                        <td class="text-right">{{ data.cpu_speed ?? 'N/A' }}</td>
                     </tr>
                     <tr>
                         <td class="text-left">Memoty usage:</td>
-                        <td class="text-right">RAM: {{ data.memory_usages }}Mb</td>
+                        <td class="text-right">RAM: {{ data.memory_usages ?? 'N/A' }}Mb</td>
                     </tr>
                 </tbody>
             </table>

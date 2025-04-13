@@ -8,6 +8,10 @@ use Illuminate\Http\Request;
 
 class DialplanController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware("auth");
+    }
     /**
      * Display a listing of the resource.
      *
@@ -18,17 +22,6 @@ class DialplanController extends Controller
         $dialplans = Dialplan::orderBy('id', 'desc')
             ->paginate(50);
         return DialplanResource::collection($dialplans);
-    }
-
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
     }
 
     /**
@@ -54,20 +47,8 @@ class DialplanController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Dialplan  $dialplan
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Dialplan $dialplan)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Dialplan  $dialplan
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -80,7 +61,6 @@ class DialplanController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Dialplan  $dialplan
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -109,7 +89,6 @@ class DialplanController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Dialplan  $dialplan
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)

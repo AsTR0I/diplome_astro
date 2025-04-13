@@ -524,7 +524,6 @@ class ComposerStaticInitaca4f556b7e282416e69d65aa3773c48
     );
 
     public static $classMap = array (
-        'App\\Agent' => __DIR__ . '/../..' . '/app/Agent.php',
         'App\\Cdr' => __DIR__ . '/../..' . '/app/Cdr.php',
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Dialplan' => __DIR__ . '/../..' . '/app/Dialplan.php',
@@ -543,6 +542,7 @@ class ComposerStaticInitaca4f556b7e282416e69d65aa3773c48
         'App\\Http\\Controllers\\DialplanController' => __DIR__ . '/../..' . '/app/Http/Controllers/DialplanController.php',
         'App\\Http\\Controllers\\ExtensionController' => __DIR__ . '/../..' . '/app/Http/Controllers/ExtensionController.php',
         'App\\Http\\Controllers\\HomeController' => __DIR__ . '/../..' . '/app/Http/Controllers/HomeController.php',
+        'App\\Http\\Controllers\\SystemInfoController' => __DIR__ . '/../..' . '/app/Http/Controllers/SystemInfoController.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
         'App\\Http\\Middleware\\Authenticate' => __DIR__ . '/../..' . '/app/Http/Middleware/Authenticate.php',
         'App\\Http\\Middleware\\CheckForMaintenanceMode' => __DIR__ . '/../..' . '/app/Http/Middleware/CheckForMaintenanceMode.php',

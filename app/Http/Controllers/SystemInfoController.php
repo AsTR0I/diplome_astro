@@ -6,6 +6,11 @@ use Illuminate\Http\Request;
 
 class SystemInfoController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware("auth");
+    }
     // resources - cpu, ram, cpu-info, uptime, cpu-speed, memory-usages
     public function resources()
     {
@@ -62,6 +67,115 @@ class SystemInfoController extends Controller
         ]);
     }
 
+    public function osResources()
+    {
+        $os = strtolower(PHP_OS);
+        $data = [];
+
+        $data['os_name'] = php_uname('s'); // Название ОС (например, Linux)
+        $data['os_release'] = php_uname('r'); // Релиз ОС (например, 5.4.0-74-generic)
+        $data['os_version'] = php_uname('v'); // Версия ОС (например, #83-Ubuntu SMP)
+        $data['architecture'] = php_uname('m'); // Архитектура (например, x86_64)
+        $data['hostname'] = gethostname(); // Имя хоста (например, my-hostname)
+
+        return response()->json($data);
+
+    }
+
+    public function hardDriversResources()
+    {
+        $os = strtolower(PHP_OS);
+        $data = [];
+    
+        // Для Linux
+        if (str_contains($os, 'linux')) {
+            $output = shell_exec('lsblk -o NAME,SIZE,TYPE,MOUNTPOINT,MODEL');
+            $data = $this->parseLsblkOutput($output);
+        } 
+        // Для FreeBSD
+        else if (str_contains($os, 'freebsd')) {
+            $output = shell_exec('gpart show');
+            $data = $this->parseGpartOutput($output);
+        }
+    
+        // Возвращаем результат в формате JSON
+        return response()->json($data);
+    }
+    
+    // Разбор вывода команды lsblk для Linux
+    private function parseLsblkOutput($output)
+    {
+        $lines = explode("\n", $output);
+        $disks = [];
+        $currentDisk = null;
+    
+        foreach ($lines as $line) {
+            if (empty($line)) continue;
+    
+            // Разбиваем строку на колонки
+            $columns = preg_split('/\s+/', $line);
+    
+            // Пропускаем заголовки
+            if ($columns[0] === "NAME") continue;
+    
+            // Обрабатываем данные дисков
+            if ($columns[2] === "disk") {
+                // Если это диск, создаём новый объект для него
+                if ($currentDisk !== null) {
+                    $disks[] = $currentDisk;
+                }
+                $currentDisk = [
+                    'name' => $columns[0],
+                    'size' => $columns[1],
+                    'type' => $columns[2],
+                    'mountpoint' => $columns[3] ?? null,
+                    'model' => $columns[4] ?? null,
+                    'partitions' => []
+                ];
+            } elseif ($columns[2] === "part") {
+                // Если это раздел, добавляем информацию в текущий диск
+                if ($currentDisk !== null) {
+                    $currentDisk['partitions'][] = [
+                        'name' => $columns[0],
+                        'size' => $columns[1],
+                        'mountpoint' => $columns[3] ?? null,
+                    ];
+                }
+            }
+        }
+    
+        // Добавляем последний диск в массив
+        if ($currentDisk !== null) {
+            $disks[] = $currentDisk;
+        }
+    
+        return $disks;
+    }
+    
+    // Разбор вывода команды gpart для FreeBSD (если необходимо)
+    private function parseGpartOutput($output)
+    {
+        $lines = explode("\n", $output);
+        $disks = [];
+    
+        foreach ($lines as $line) {
+            if (empty($line)) continue;
+    
+            $columns = preg_split('/\s+/', $line);
+    
+            if (count($columns) >= 4) {
+                $disks[] = [
+                    'device' => $columns[0],
+                    'size' => $columns[1],
+                    'type' => $columns[2],
+                    'partitions' => $columns[3] ?? null,
+                ];
+            }
+        }
+    
+        return $disks;
+    }
+
     public function ramChart()
     {
         $os = strtolower(PHP_OS);
@@ -108,7 +222,6 @@ class SystemInfoController extends Controller
             ]
         ]);
     }
-
 
     protected function getCpuLoad()
     {

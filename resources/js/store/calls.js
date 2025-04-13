@@ -3,6 +3,7 @@ export default {
 
     state: {
         filters: {
+            disposition: null,
             src: null,
             dst: null
         },
@@ -10,6 +11,9 @@ export default {
     },
 
     mutations: {
+        updateStatusFilter(state, disposition) {
+            state.filters.disposition = disposition;
+        },
         updateSrcFilter(state, src) {
             state.filters.src = src;
         },

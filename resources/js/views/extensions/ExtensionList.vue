@@ -14,11 +14,11 @@
                                 small
                                 class="ml-1"
                             >
-                                help-circle
+                                help
                             </v-icon>
                         </template>
                         <span>
-                            Тут будет описание-помощник
+                            Здесь отображаются добавленные расширения (extensions), которые используются для маршрутизации звонков в dial-плане Asterisk.
                         </span>
                     </v-tooltip>
                 </v-row>
@@ -75,7 +75,7 @@
                                             v-on="on"
                                             small
                                         >
-                                            help-circle
+                                            help
                                         </v-icon>
                                         </template>
                                         <span>
@@ -91,7 +91,7 @@
                                             v-on="on"
                                             small
                                         >
-                                            help-circle
+                                            help
                                         </v-icon>
                                         </template>
                                         <span>
@@ -107,7 +107,7 @@
                                             v-on="on"
                                             small
                                         >
-                                            help-circle
+                                            help
                                         </v-icon>
                                         </template>
                                         <span>
@@ -123,7 +123,7 @@
                                             v-on="on"
                                             small
                                         >
-                                            help-circle
+                                            help
                                         </v-icon>
                                         </template>
                                         <span>
@@ -139,7 +139,7 @@
                                             v-on="on"
                                             small
                                         >
-                                            help-circle
+                                            help
                                         </v-icon>
                                         </template>
                                         <span>

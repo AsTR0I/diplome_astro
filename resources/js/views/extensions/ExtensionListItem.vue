@@ -47,6 +47,10 @@ export default {
 
     methods: {
         deleteExtension(extension) {
+            if (!confirm('Вы точно хотите удалить?')) {
+                return;
+            }
+
             this.loading = true;
             window.axios.post(`extensions/${extension.id}/delete`)
                 .then((response) => {

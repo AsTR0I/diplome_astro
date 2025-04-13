@@ -16,6 +16,18 @@ export default new Router({
     name: 'calls',
     component: () => import('../views/calls/CallList.vue'),
   }, {
+    path: '/sippeers',
+    name: 'sippeers',
+    component: () => import('../views/sippeers/SippeersList.vue'),
+  }, {
+    path: '/sippeers/create',
+    name: 'sippeers.create',
+    component: () => import('../views/sippeers/SippeersCreate.vue'),
+  }, {
+    path: '/sippeers/:id(\\d+)',
+    name: 'sippeers.edit',
+    component: () => import('../views/sippeers/SippeersEdit.vue'),
+  }, {
     path: '/dialplans',
     name: 'dialplans',
     component: () => import('../views/dialplans/DialplanList.vue'),
@@ -43,5 +55,18 @@ export default new Router({
     path: '/system',
     name: 'system',
     component: () => import('../views/system/SystemDashboard.vue')
-  }]
+  },
+  // settings/users
+  {
+    path: '/settings/users',
+    name: 'settings.users',
+    component: () => import('../views/settings/users/UsersList.vue')
+  }  ,
+  // settings/configs
+  {
+    path: '/settings/configs',
+    name: 'settings.configs',
+    component: () => import('../views/settings/configs/ConfigsList.vue')
+  }
+]
 });

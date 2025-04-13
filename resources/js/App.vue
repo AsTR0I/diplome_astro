@@ -140,6 +140,10 @@ export default {
           title: 'История звонков',
           route: { name: 'calls' }
         }, {
+          icon: 'group',
+          title: 'SIP пиры',
+          route: { name: 'sippeers' }
+        }, {
           icon: 'route',
           title: 'Диалплан',
           route: { name: 'dialplans' }
@@ -148,10 +152,24 @@ export default {
           title: 'Расширения',
           route: { name: 'extensions' }
         }, {
-          icon: 'settings',
+          icon: 'computer',
           title: 'Система',
           route: { name: 'system' }
-        },],
+        }, {
+          icon: 'settings',
+          title: 'Настройки',
+          children: [
+            {
+              icon: 'users',
+              title: 'Пользователи',
+              route: { name: 'settings.users'}
+            }, {
+              icon: 'configs',
+              title: 'Конфигурационные файлы',
+              route: { name: 'settings.configs'}
+            }
+          ]
+        }],
       csrtToken: document.querySelector('meta[name="csrf-token"]').getAttribute('content')
     }
   }

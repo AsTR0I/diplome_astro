@@ -66,11 +66,11 @@ export default {
         },
         getStatusIcon(item) {
             if (item.disposition === 'ANSWERED') {
-                return 'call-received';
+                return 'call_received';
             } else if (item.disposition === 'BUSY') {
-                return 'phone-alert';
+                return 'phone_alert';
             } else {
-                return 'call-missed';
+                return 'call_missed';
             }
         },
         getStatusText(item) {

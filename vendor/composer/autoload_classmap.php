@@ -6,7 +6,6 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
-    'App\\Agent' => $baseDir . '/app/Agent.php',
     'App\\Cdr' => $baseDir . '/app/Cdr.php',
     'App\\Console\\Kernel' => $baseDir . '/app/Console/Kernel.php',
     'App\\Dialplan' => $baseDir . '/app/Dialplan.php',
@@ -25,6 +24,7 @@ return array(
     'App\\Http\\Controllers\\DialplanController' => $baseDir . '/app/Http/Controllers/DialplanController.php',
     'App\\Http\\Controllers\\ExtensionController' => $baseDir . '/app/Http/Controllers/ExtensionController.php',
     'App\\Http\\Controllers\\HomeController' => $baseDir . '/app/Http/Controllers/HomeController.php',
+    'App\\Http\\Controllers\\SystemInfoController' => $baseDir . '/app/Http/Controllers/SystemInfoController.php',
     'App\\Http\\Kernel' => $baseDir . '/app/Http/Kernel.php',
     'App\\Http\\Middleware\\Authenticate' => $baseDir . '/app/Http/Middleware/Authenticate.php',
     'App\\Http\\Middleware\\CheckForMaintenanceMode' => $baseDir . '/app/Http/Middleware/CheckForMaintenanceMode.php',

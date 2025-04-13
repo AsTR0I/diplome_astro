@@ -11,21 +11,28 @@
         </v-col>
       </v-row>
     </v-card-title>
+    
     <v-card-text>
       <v-row align="center">
         <v-col cols="6">
+          <!-- Компонент для графика CPU -->
           <system-cpu-chart ref="systemCpuChart"/>
         </v-col>
+        
         <v-col cols="6">
+          <!-- Компонент для графика RAM -->
           <system-ram-chart ref="systemRamChart" />
         </v-col>
       </v-row>
+      
       <v-row align="center">
-        <v-col cols=12>
+        <v-col cols="12">
+          <!-- Список системных ресурсов -->
           <system-resources-list :data="systemData" />
         </v-col>
       </v-row>
     </v-card-text>
+
     <div>
       <notifications group="foo" position="bottom center" class="mt-6" />
     </div>

@@ -8,6 +8,10 @@ use Illuminate\Http\Request;
 
 class ExtensionController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware("auth");
+    }
     /**
      * Display a listing of the resource.
      *
@@ -115,5 +119,20 @@ class ExtensionController extends Controller
         }
 
         return response()->json(['message' => 'Расширение не найдено.'], 404);
+    }
+
+    public function getContexts()
+    {
+        $contexts = Extension::all()->pluck('context')->unique(); ;
+        $data = $contexts->map(function ($context) {
+            return [
+                'text' => ucfirst($context),
+                'value' => $context
+            ];
+        });
+    
+        return response()->json([
+            'data' => $data
+        ]);
     }
 }

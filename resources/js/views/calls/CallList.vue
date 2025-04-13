@@ -5,7 +5,24 @@
             class="mb-0"
         >
             <v-col cols="auto">
-                <h1 class="headline font-weight-medium">История звонков</h1>
+                <v-row align="center">
+                    <h1 class="headline font-weight-medium">История звонков</h1>
+                    <v-tooltip top>
+                        <template v-slot:activator="{ on }">
+                            <v-icon
+                                v-on="on"
+                                small
+                                class="ml-1"
+                            >
+                                help
+                            </v-icon>
+                        </template>
+                        <span>
+                            Здесь отображаются все звонки, зафиксированные в системе Asterisk, на основе CDR (Call Detail Records). 
+                            Вы можете просматривать дату, направление, продолжительность и другие параметры вызовов.
+                        </span>
+                    </v-tooltip>
+                </v-row>
             </v-col>
 
             <v-col

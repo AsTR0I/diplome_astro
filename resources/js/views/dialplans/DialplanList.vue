@@ -5,7 +5,24 @@
             class="mb-0"
         >
             <v-col cols="auto">
-                <h1 class="headline font-weight-medium">Диалплан</h1>
+                <v-row align="center">
+                    <h1 class="headline font-weight-medium">Диалплан</h1>
+                    <v-tooltip top>
+                        <template v-slot:activator="{ on }">
+                            <v-icon
+                                v-on="on"
+                                small
+                                class="ml-1"
+                            >
+                                help
+                            </v-icon>
+                        </template>
+                        <span>
+                            Диалплан (dialplan) — это логика обработки вызовов в Asterisk. 
+                            Он определяет, что происходит, когда кто-то звонит: маршруты, условия и действия.
+                        </span>
+                    </v-tooltip>
+                </v-row>
             </v-col>
 
             <v-col
@@ -59,7 +76,7 @@
                                             v-on="on"
                                             small
                                         >
-                                            help-circle
+                                            help
                                         </v-icon>
                                         </template>
                                         <span>
@@ -75,7 +92,7 @@
                                             v-on="on"
                                             small
                                         >
-                                            help-circle
+                                            help
                                         </v-icon>
                                         </template>
                                         <span>
@@ -91,7 +108,7 @@
                                             v-on="on"
                                             small
                                         >
-                                            help-circle
+                                            help
                                         </v-icon>
                                         </template>
                                         <span>
@@ -107,7 +124,7 @@
                                             v-on="on"
                                             small
                                         >
-                                            help-circle
+                                            help
                                         </v-icon>
                                         </template>
                                         <span>
@@ -123,7 +140,7 @@
                                             v-on="on"
                                             small
                                         >
-                                            help-circle
+                                            help
                                         </v-icon>
                                         </template>
                                         <span>

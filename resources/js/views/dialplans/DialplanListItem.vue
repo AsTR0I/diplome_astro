@@ -47,6 +47,9 @@ export default {
 
     methods: {
         deleteDialplan(dialplan) {
+            if (!confirm('Вы точно хотите удалить?')) {
+                return;
+            }
             this.loading = true;
             window.axios.post(`dialplans/${dialplan.id}/delete`)
                 .then((response) => {

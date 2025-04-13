@@ -6,7 +6,7 @@
         <v-card-title>
             <v-row no-gutters align="center">
                 <v-col>
-                    Кол-во звонков АТС (<span style="color: rgba(51, 102, 204, 0.5); font-size: medium;">{{chartData.total}}</span>)
+                    CDR (<span style="color: rgba(51, 102, 204, 0.5); font-size: medium;">{{chartData.total}}</span>)
                 </v-col>
 
                 <v-col cols="auto">
