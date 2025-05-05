@@ -41,9 +41,36 @@
                     title="Обновить"
                     @click="refresh"
                 >
-                <v-icon>refresh</v-icon>
+                    <v-icon>refresh</v-icon>
                 </v-btn>
+                <v-menu>
+                    <template v-slot:activator="{ on }">
+                        <v-btn
+                        icon
+                        title="Экспорт"
+                        v-on="on"
+                        >
+                        <v-icon>get_app</v-icon>
+                        </v-btn>
+                    </template>
 
+                    <v-list>
+                        <v-list-item 
+                            @click="downloadXLSX()"
+                            >
+                            <v-list-item-title>Выгрузить в XLSX</v-list-item-title>
+                        </v-list-item>
+                        <v-list-item 
+                            :disabled="calls.meta.last_page <= 1"
+
+                            @click="downloadXLSX('full')"
+                            >
+                            <v-list-item-title>Выгрузить в XLSX (Полная)</v-list-item-title>
+                        </v-list-item>
+                    </v-list>
+
+                    <v-divider />
+                </v-menu>
             </v-col>
         </v-row>
 
@@ -274,6 +301,47 @@ export default {
         // filters
         changeStatus(value) {
             this.updateStatusFilter(value);
+        },
+        downloadXLSX(mode) {
+            this.loading = true;
+            const params = {
+                ...this.filters,
+                paginate: mode == 'full' ? 'false' : 'true',
+                page: this.currentPage
+            };
+            axios.get("calls/export-to-xlsx", {
+                params,
+                responseType: 'blob'
+            })
+            .then((response) => {
+                const disposition = response.headers['content-disposition'];
+                let fileName = 'calls_export.xlsx';
+
+                if (disposition && disposition.includes('filename=')) {
+                    const match = disposition.match(/filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/);
+                    if (match && match[1]) {
+                        fileName = match[1].replace(/['"]/g, '');
+                    }
+                }
+
+                const blob = new Blob([response.data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+                const link = document.createElement('a');
+                link.href = window.URL.createObjectURL(blob);
+                link.download = fileName;
+                link.click();
+            })
+            .catch((error) => {
+                this.$notify({
+                        group: 'foo',
+                        title: 'Ошибка',
+                        text: 'Ошибка при загрузке данных.',
+                        type: 'error',
+                        position: 'top center'
+                    });
+                })
+            .finally(() => {
+                this.loading = false;
+            })
         }
     },
 

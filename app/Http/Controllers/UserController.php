@@ -21,4 +21,18 @@ class UserController extends Controller
 
         return UserResource::collection(($users));
     }
+
+    public function destroy($id) 
+    {
+        $user = User::find($id);
+        
+        if (!$user) {
+            return response()->json(['message' => 'User not found'], 404);
+        }
+
+        $user->delete();
+
+        // Возвращаем успешный ответ
+        return response()->json(['message' => 'User successfully deleted'], 200);
+    }
 }

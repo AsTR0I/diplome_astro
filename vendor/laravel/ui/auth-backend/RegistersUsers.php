@@ -29,19 +29,19 @@ trait RegistersUsers
      */
     public function register(Request $request)
     {
+        // Валидируем данные
         $this->validator($request->all())->validate();
-
-        event(new Registered($user = $this->create($request->all())));
-
-        $this->guard()->login($user);
-
-        if ($response = $this->registered($request, $user)) {
-            return $response;
-        }
-
+    
+        // Создаем пользователя
+        $user = $this->create($request->all());
+    
+        // Вызываем событие регистрации, если нужно
+        event(new Registered($user));
+    
+        // Если нужно, можно вернуть ответ JSON
         return $request->wantsJson()
-                    ? new JsonResponse([], 201)
-                    : redirect($this->redirectPath());
+            ? new JsonResponse([], 201)  // Возвращаем статус 201 для успешной регистрации
+            : response()->json(['message' => 'User successfully registered.'], 201);
     }
 
     /**

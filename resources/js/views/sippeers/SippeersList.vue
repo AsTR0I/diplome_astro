@@ -6,7 +6,7 @@
         >
             <v-col cols="auto">
                 <v-row align="center">
-                    <h1 class="headline font-weight-medium">SIP пиры</h1>
+                    <h1 class="headline font-weight-medium">SIP телефоны</h1>
                     <v-tooltip top>
                         <template v-slot:activator="{ on }">
                             <v-icon
@@ -44,6 +44,33 @@
                 >
                 <v-icon>refresh</v-icon>
                 </v-btn>
+                <v-menu>
+                    <template v-slot:activator="{ on }">
+                        <v-btn
+                        icon
+                        title="Экспорт"
+                        v-on="on"
+                        >
+                        <v-icon>get_app</v-icon>
+                        </v-btn>
+                    </template>
+
+                    <v-list>
+                        <v-list-item 
+                            @click="downloadXLSX()"
+                            >
+                            <v-list-item-title>Выгрузить в XLSX</v-list-item-title>
+                        </v-list-item>
+                        <v-list-item
+                            :disabled="sippeers.meta.last_page <= 1"
+                            @click="downloadXLSX('full')"
+                            >
+                            <v-list-item-title>Выгрузить в XLSX (Полная)</v-list-item-title>
+                        </v-list-item>
+                    </v-list>
+
+                    <v-divider />
+                </v-menu>
             </v-col>
             <v-col cols="auto">
                 <v-btn
@@ -265,6 +292,46 @@ export default {
         refresh() {
             this.fetchData(Object.assign({}, {page: this.sippeers.meta.current_page}));
         },
+        downloadXLSX(mode) {
+            this.loading = true;
+            const params = {
+                paginate: mode == 'full' ? 'false' : 'true',
+                page: this.sippeers.meta.current_page
+            };
+            axios.get("sippeers/export-to-xlsx", {
+                params,
+                responseType: 'blob'
+            })
+            .then((response) => {
+                const disposition = response.headers['content-disposition'];
+                let fileName = 'sippeers_export.xlsx';
+
+                if (disposition && disposition.includes('filename=')) {
+                    const match = disposition.match(/filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/);
+                    if (match && match[1]) {
+                        fileName = match[1].replace(/['"]/g, '');
+                    }
+                }
+
+                const blob = new Blob([response.data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+                const link = document.createElement('a');
+                link.href = window.URL.createObjectURL(blob);
+                link.download = fileName;
+                link.click();
+            })
+            .catch((error) => {
+                this.$notify({
+                        group: 'foo',
+                        title: 'Ошибка',
+                        text: 'Ошибка при загрузке данных.',
+                        type: 'error',
+                        position: 'top center'
+                    });
+                })
+            .finally(() => {
+                this.loading = false;
+            })
+        }
     },
 }
 </script>

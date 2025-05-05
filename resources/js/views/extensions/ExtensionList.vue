@@ -18,7 +18,7 @@
                             </v-icon>
                         </template>
                         <span>
-                            Здесь отображаются добавленные расширения (extensions), которые используются для маршрутизации звонков в dial-плане Asterisk.
+                            Здесь отображаются добавленные расширения (extensions), которые используются для маршрутизации взодящих звонков Asterisk.
                         </span>
                     </v-tooltip>
                 </v-row>
@@ -42,6 +42,28 @@
                 >
                 <v-icon>refresh</v-icon>
                 </v-btn>
+                <v-menu>
+                    <template v-slot:activator="{ on }">
+                        <v-btn
+                        icon
+                        title="Экспорт"
+                        v-on="on"
+                        >
+                        <v-icon>get_app</v-icon>
+                        </v-btn>
+                    </template>
+
+                    <v-list>
+                        <v-list-item 
+                            @click="downloadXLSX()"
+                            :disabled="true"
+                            >
+                            <v-list-item-title>Выгрузить в XLSX</v-list-item-title>
+                        </v-list-item>
+                    </v-list>
+
+                    <v-divider />
+                </v-menu>
             </v-col>
             <v-col cols="auto">
                 <v-btn
@@ -252,6 +274,9 @@ export default {
         refresh() {
             this.fetchData(Object.assign({}, {page: this.extensions.meta.current_page}));
         },
+        downloadXLSX() {
+            
+        }
     },
 }
 </script>

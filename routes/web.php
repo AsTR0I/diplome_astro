@@ -17,6 +17,8 @@ Route::get('/', 'HomeController@index')->name('home');
 // cdr
 Route::get('calls', 'CdrController@index');
 Route::get('calls/calls-count', 'CdrController@dashboardChart');
+Route::get('calls/export-to-xlsx', 'CdrController@exportToXLSX');
+Route::get('calls/recordings/{uniqueid}', 'CdrController@getRecording');
 
 // dialplans
 Route::get('dialplans', 'DialplanController@index');
@@ -35,6 +37,8 @@ Route::post('extensions/{id}/delete', 'ExtensionController@destroy');
 
 // sippeers
 Route::get('sippeers', 'SippeerController@index');
+Route::get('sippeers/export-to-xlsx', 'SippeerController@exportToXLSX');
+
 Route::post('sippeers', 'SippeerController@store');
 Route::get('sippeers/{id}', 'SippeerController@edit');
 Route::post('sippeers/{id}', 'SippeerController@update');
@@ -49,3 +53,17 @@ Route::get('system-info/hard-drivers-resources','SystemInfoController@hardDriver
 Route::get('system-info/network-interfaces-resources','SystemInfoController@networkInterfacesResources');
 
 Route::get('settings/users','UserController@index');
+Route::post('settings/users/{id}/delete', 'UserController@destroy');
+
+Route::get('settings/configs','ConfigController@index');
+Route::get('settings/configs/files-content','ConfigController@getfileContent');
+Route::post('settings/configs/files-content','ConfigController@updatefileContent');
+Route::post('settings/configs/files/rename', 'ConfigController@rename');
+Route::post('settings/configs/files/delete','ConfigController@delete');
+Route::get('settings/configs/files/download','ConfigController@download');
+Route::post('settings/configs/files/upload','ConfigController@upload');
+
+Route::get('asterisk-commands','AsteriskCommandsController@index');
+Route::post('asterisk-commands/{id}/execute', 'AsteriskCommandsController@execute');
+
+Route::get('sniffer/sip-packets','SnifferController@index');

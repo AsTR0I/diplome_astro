@@ -76,7 +76,6 @@
                   v-model="extension.appdata"
                   label="Appdata"
                   autofocus
-                  :rules="rules.appdata"
                 />
               </v-card-text>
             </v-card>

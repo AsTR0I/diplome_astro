@@ -1,0 +1,56 @@
+2025/05/02 02:31:55 Received packet line: 02:31:55.038917 IP localhost.35483 > localhost.9717: UDP, length 824
+2025/05/02 02:31:55 Received packet line: E..T0.@.@.	...........%..@.TINVITE sip:73422099801@127.0.0.1:9717 SIP/2.0
+2025/05/02 02:31:55 Received packet line: Via: SIP/2.0/UDP 127.0.0.1:35483;branch=z9hG4bK-1176069
+2025/05/02 02:31:55 Received packet line: Max-Forwards: 70
+2025/05/02 02:31:55 Received packet line: From: <sip:1234567@127.0.0.1:9717>;tag=ahalamu-1c1739123878
+2025/05/02 02:31:55 Received packet line: To: <sip:73422099801@127.0.0.1:9717>
+2025/05/02 02:31:55 Received packet line: Call-ID: sipc-ahalamudilah1760841062@127.0.0.1
+2025/05/02 02:31:55 Received packet line: CSeq: 1211 INVITE
+2025/05/02 02:31:55 Received packet line: Contact: <sip:1234567@127.0.0.1:35483;transport=udp>
+2025/05/02 02:31:55 Received packet line: Allow: INVITE, ACK, CANCEL, OPTIONS, BYE, REFER, SUBSCRIBE, NOTIFY, INFO, PUBLISH
+2025/05/02 02:31:55 Received packet line: User-Agent: sipc (linux/amd64) v25.4.27
+2025/05/02 02:31:55 Received packet line: Diversion: <sip:1234567@127.0.0.1:9717>
+2025/05/02 02:31:55 Received packet line: Diversion: <sip:tel:1234567@127.0.0.1:9717>
+2025/05/02 02:31:55 Received packet line: Content-Type: application/sdp
+2025/05/02 02:31:55 Received packet line: Content-Length: 218
+2025/05/02 02:31:55 Received packet line: 
+2025/05/02 02:31:55 Received packet line: v=0
+2025/05/02 02:31:55 Received packet line: o=- 105461651 105461651 IN IP4 192.168.230.201
+2025/05/02 02:31:55 Received packet line: s=-
+2025/05/02 02:31:55 Received packet line: c=IN IP4 192.168.230.201
+2025/05/02 02:31:55 Received packet line: t=0 0
+2025/05/02 02:31:55 Received packet line: m=audio 16492 RTP/AVP 8 101
+2025/05/02 02:31:55 Received packet line: a=rtpmap:8 PCMA/8000
+2025/05/02 02:31:55 Received packet line: a=rtpmap:101 telephone-event/8000
+2025/05/02 02:31:55 Received packet line: a=fmtp:101 0-15
+2025/05/02 02:31:55 Received packet line: a=ptime:20
+2025/05/02 02:31:55 Received packet line: a=sendrecv
+2025/05/02 02:31:55 Received packet line: 
+2025/05/02 02:31:58 Received packet line: 02:31:58.644886 IP localhost.60391 > localhost.9717: UDP, length 824
+2025/05/02 02:31:58 Received packet line: E..T..@.@.............%..@.TINVITE sip:73422099801@127.0.0.1:9717 SIP/2.0
+2025/05/02 02:31:58 Received packet line: Via: SIP/2.0/UDP 127.0.0.1:60391;branch=z9hG4bK-1858182
+2025/05/02 02:31:58 Received packet line: Max-Forwards: 70
+2025/05/02 02:31:58 Received packet line: From: <sip:1234567@127.0.0.1:9717>;tag=ahalamu-1c1739136594
+2025/05/02 02:31:58 Received packet line: To: <sip:73422099801@127.0.0.1:9717>
+2025/05/02 02:31:58 Received packet line: Call-ID: sipc-ahalamudilah1644682083@127.0.0.1
+2025/05/02 02:31:58 Received packet line: CSeq: 1715 INVITE
+2025/05/02 02:31:58 Received packet line: Contact: <sip:1234567@127.0.0.1:60391;transport=udp>
+2025/05/02 02:31:58 Received packet line: Allow: INVITE, ACK, CANCEL, OPTIONS, BYE, REFER, SUBSCRIBE, NOTIFY, INFO, PUBLISH
+2025/05/02 02:31:58 Received packet line: User-Agent: sipc (linux/amd64) v25.4.27
+2025/05/02 02:31:58 Received packet line: Diversion: <sip:1234567@127.0.0.1:9717>
+2025/05/02 02:31:58 Received packet line: Diversion: <sip:tel:1234567@127.0.0.1:9717>
+2025/05/02 02:31:58 Received packet line: Content-Type: application/sdp
+2025/05/02 02:31:58 Received packet line: Content-Length: 218
+2025/05/02 02:31:58 Received packet line: 
+2025/05/02 02:31:58 Received packet line: v=0
+2025/05/02 02:31:58 Received packet line: o=- 105461651 105461651 IN IP4 192.168.230.201
+2025/05/02 02:31:58 Received packet line: s=-
+2025/05/02 02:31:58 Received packet line: c=IN IP4 192.168.230.201
+2025/05/02 02:31:58 Received packet line: t=0 0
+2025/05/02 02:31:58 Received packet line: m=audio 16492 RTP/AVP 8 101
+2025/05/02 02:31:58 Received packet line: a=rtpmap:8 PCMA/8000
+2025/05/02 02:31:58 Received packet line: a=rtpmap:101 telephone-event/8000
+2025/05/02 02:31:58 Received packet line: a=fmtp:101 0-15
+2025/05/02 02:31:58 Received packet line: a=ptime:20
+2025/05/02 02:31:58 Received packet line: a=sendrecv
+2025/05/02 02:31:58 Received packet line: 

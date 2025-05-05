@@ -12,10 +12,6 @@ export const rules = {
     ],
     app: [
       v => !!v || 'Укажите action',
-
-    ],
-    appdata: [
-      v => !!v || 'Укажите params',
     ],
   };
 

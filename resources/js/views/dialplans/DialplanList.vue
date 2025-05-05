@@ -18,7 +18,7 @@
                             </v-icon>
                         </template>
                         <span>
-                            Диалплан (dialplan) — это логика обработки вызовов в Asterisk. 
+                            Диалплан (dialplan) — это логика обработки вызовов в Asterisk для исходящих звонков. 
                             Он определяет, что происходит, когда кто-то звонит: маршруты, условия и действия.
                         </span>
                     </v-tooltip>
@@ -41,8 +41,30 @@
                     title="Обновить"
                     @click="refresh"
                 >
-                <v-icon>refresh</v-icon>
+                    <v-icon>refresh</v-icon>
                 </v-btn>
+                <v-menu>
+                    <template v-slot:activator="{ on }">
+                        <v-btn
+                        icon
+                        title="Экспорт"
+                        v-on="on"
+                        >
+                        <v-icon>get_app</v-icon>
+                        </v-btn>
+                    </template>
+
+                    <v-list>
+                        <v-list-item 
+                            @click="downloadXLSX()"
+                            :disabled="true"
+                            >
+                            <v-list-item-title>Выгрузить в XLSX</v-list-item-title>
+                        </v-list-item>
+                    </v-list>
+
+                    <v-divider />
+                </v-menu>
             </v-col>
             <v-col cols="auto">
                 <v-btn
@@ -254,6 +276,9 @@ export default {
         refresh() {
             this.fetchData(Object.assign({}, {page: this.dialplans.meta.current_page}));
         },
+        downloadXLSX() {
+            
+        }
     },
 }
 </script>

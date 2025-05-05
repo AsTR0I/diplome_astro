@@ -45,9 +45,8 @@
             </v-col>
             <v-col cols="auto">
                 <v-btn
-                    :to="{ name: 'users.create'}"
+                    :to="{ name: 'settings.users.create'}"
                     color="primary"
-                    :disabled="true"
                     >
                     <v-icon left>add</v-icon>
                         Добавить

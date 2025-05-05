@@ -7,7 +7,27 @@
             {{ sippeer.type }}
         </td>
         <td>
-            {{ sippeer.secret }}
+            <v-text-field
+                solo
+                flat
+                dense
+                readonly
+                hide-details
+                style="max-width: 180px"
+                :value="sippeer.secret"
+                :type="passwordVisible ? 'text' : 'password'"
+                v-if="sippeer.secret"
+            >
+                <template v-slot:append>
+                <v-icon
+                    class="mr-2"
+                    @click="passwordVisible = !passwordVisible"
+                >
+                    {{ passwordVisible ? 'visibility_off' : 'visibility' }}
+                </v-icon>
+                <v-icon @click="copyPassword(sippeer)">content_copy</v-icon>
+                </template>
+            </v-text-field>
         </td>
         <td>
             {{ sippeer.host }}
@@ -44,6 +64,12 @@
 <script>
 export default {
     name: 'SippeersListItem',
+
+    data() {
+        return {
+            passwordVisible: false
+        }
+    },
 
     props: {
         sippeer: {
@@ -90,7 +116,16 @@ export default {
                     this.loading = false;
                     this.refresh();
                 })
-        }
+        },
+        copyPassword(sippeer) {
+            this.$copyText(sippeer.secret)
+                .then(() => {
+                this.$notify({
+                    text: 'Пароль скопирован в буфер',
+                    type: 'success',
+                });
+                });
+        },
     }
 }
 </script>

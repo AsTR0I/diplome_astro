@@ -55,18 +55,34 @@ export default new Router({
     path: '/system',
     name: 'system',
     component: () => import('../views/system/SystemDashboard.vue')
+  }, {
+    path: '/logs',
+    name: 'logs',
+    component: () => import('../views/logs/LogsList.vue')
   },
   // settings/users
   {
     path: '/settings/users',
     name: 'settings.users',
     component: () => import('../views/settings/users/UsersList.vue')
-  }  ,
+  }, {
+    path: '/settings/users/:id(\\d+)',
+    name: 'settings.users.create',
+    component: () => import('../views/settings/users/UsersCreate.vue')
+  }, {
+    path: '/settings/users/create',
+    name: 'settings.users.edit',
+    component: () => import('../views/settings/users/UsersCreate.vue')
+  },
   // settings/configs
   {
     path: '/settings/configs',
     name: 'settings.configs',
     component: () => import('../views/settings/configs/ConfigsList.vue')
+  }, {
+    path: '/sniffer',
+    name: 'sniffer',
+    component: () => import('../views/sniffer/PacketsList.vue')
   }
 ]
 });

@@ -28,14 +28,39 @@
         <td>
             {{ formatDuration(call.duration) }}
         </td>
+        <td class="text-right">
+            <template v-if="call.duration > 0 && call.uniqueid">
+                <!-- Кнопка проигрывания -->
+                <v-btn icon @click="togglePlayback(call)" :title="isPlaying ? 'Остановить' : 'Воспроизвести запись'" :loading="playLoading">
+                    <v-icon>{{ isPlaying ? 'stop' : 'play_arrow' }}</v-icon>
+                </v-btn>
+
+                <!-- Кнопка скачивания -->
+                <v-btn icon @click="downloadRecording(call)" :title="'Скачать запись'" :loading="downloadLoading">
+                    <v-icon>get_app</v-icon>
+                </v-btn>
+
+                <!-- Аудио плеер (скрытый или как всплывающее окно, можно переделать) -->
+                <audio ref="audioPlayer" controls style="display: none;"></audio>
+                </template>
+        </td>
     </tr>
 </template>
 
 <script>
+import axios from 'axios';
 import moment from 'moment';
 
 export default {
     name: 'CallListItem',
+
+    data() {
+        return {
+            playLoading: false,
+            downloadLoading: false,
+            isPlaying: false
+        }
+    },
 
     props: {
         call: {
@@ -91,6 +116,74 @@ export default {
             const minutes = String(Math.floor(duration / 60)).padStart(2, '0');
             const seconds = String(duration % 60).padStart(2, '0');
             return `${minutes}:${seconds}`;
+        },
+        togglePlayback(item) {
+            const player = this.$refs.audioPlayer;
+
+            if (this.isPlaying) {
+                player.pause();
+                player.currentTime = 0;
+                this.isPlaying = false;
+                return;
+            }
+
+            this.playLoading = true;
+
+            axios.get(`calls/recordings/${item.uniqueid}`, { responseType: 'blob' })
+                .then((response) => {
+                    const blob = new Blob([response.data], { type: 'audio/wav' });
+                    const url = URL.createObjectURL(blob);
+                    this.isPlaying = true;
+
+                    player.src = url;
+                    player.play();
+                    player.onended = () => {
+                        this.isPlaying = false;
+                        URL.revokeObjectURL(url);
+                    };
+                })
+                .catch(() => {
+                    this.$notify({
+                        group: 'foo',
+                        title: 'Ошибка',
+                        text: 'Ошибка при воспроизведении записи.',
+                        type: 'error',
+                        position: 'top center'
+                    });
+                })
+                .finally(() => {
+                    this.playLoading = false;
+                });
+        },
+        downloadRecording(item) {
+            this.downloadLoading = true;
+
+            axios.get(`calls/recordings/${item.uniqueid}`, { responseType: 'blob' })
+                .then((response) => {
+                    const blob = new Blob([response.data], { type: 'audio/wav' });
+                    const url = URL.createObjectURL(blob);
+
+                    const link = document.createElement('a');
+                    link.href = url;
+                    link.download = `${item.uniqueid}.wav`;
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+
+                    URL.revokeObjectURL(url);
+                })
+                .catch(() => {
+                    this.$notify({
+                        group: 'foo',
+                        title: 'Ошибка',
+                        text: 'Ошибка при скачивании записи.',
+                        type: 'error',
+                        position: 'top center'
+                    });
+                })
+                .finally(() => {
+                    this.downloadLoading = false;
+                });
         }
     }
 }

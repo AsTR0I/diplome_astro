@@ -199,9 +199,9 @@ class SystemInfoController extends Controller
             // Получаем общий объём памяти
             $total = (int) shell_exec("sysctl -n hw.physmem");
             // Получаем размер страницы памяти
-            $pageSize = (int) shell_exec("sysctl -n hw.pagesize");
+            $freePages = (int) shell_exec("sysctl -n hw.pagesize");
             // Получаем количество свободных страниц
-            $freePages = (int) shell_exec("sysctl -n vm.stats.vm.v_free_count");
+            $pageSize  = (int) shell_exec("sysctl -n vm.stats.vm.v_free_count");
             // Общий объём свободной памяти
             $free = $freePages * $pageSize;
 

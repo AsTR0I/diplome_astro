@@ -141,7 +141,7 @@ export default {
           route: { name: 'calls' }
         }, {
           icon: 'group',
-          title: 'SIP пиры',
+          title: 'SIP телефоны',
           route: { name: 'sippeers' }
         }, {
           icon: 'route',
@@ -155,6 +155,14 @@ export default {
           icon: 'computer',
           title: 'Система',
           route: { name: 'system' }
+        },  {
+          icon: 'article',
+          title: 'Логи',
+          route: { name: 'logs' }
+        },   {
+          icon: 'article',
+          title: 'SIP Сниффер',
+          route: { name: 'sniffer' }
         }, {
           icon: 'settings',
           title: 'Настройки',

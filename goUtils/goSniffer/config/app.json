@@ -1,0 +1,13 @@
+{
+    "db": {
+      "user": "root",
+      "password": "root",
+      "host": "127.0.0.1",
+      "port": 3306,
+      "database": "asterisk"
+    },
+    "port": 9717,
+    "interface": "lo",
+    "logfile": "sniffer.log"
+  }
+  
