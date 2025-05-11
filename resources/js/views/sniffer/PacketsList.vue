@@ -44,12 +44,12 @@
                         <thead>
                             <tr>
                                 <th class="text-left text-no-wrap">
-                                    Call-Id
+                                    Date
                                     <v-tooltip top>
                                         <template v-slot:activator="{ on }">
                                         <v-icon v-on="on" small>help</v-icon>
                                         </template>
-                                        <span>Call-Id</span>
+                                        <span>Timestamp</span>
                                     </v-tooltip>
                                 </th>
                                 <th class="text-left text-no-wrap">
@@ -62,12 +62,39 @@
                                     </v-tooltip>
                                 </th>
                                 <th class="text-left text-no-wrap">
-                                    Timestamp
+                                    Ruri
                                     <v-tooltip top>
                                         <template v-slot:activator="{ on }">
                                         <v-icon v-on="on" small>help</v-icon>
                                         </template>
                                         <span>Timestamp</span>
+                                    </v-tooltip>
+                                </th>
+                                <th class="text-left text-no-wrap">
+                                    From
+                                    <v-tooltip top>
+                                        <template v-slot:activator="{ on }">
+                                        <v-icon v-on="on" small>help</v-icon>
+                                        </template>
+                                        <span>Timestamp</span>
+                                    </v-tooltip>
+                                </th>
+                                <th class="text-left text-no-wrap">
+                                    To
+                                    <v-tooltip top>
+                                        <template v-slot:activator="{ on }">
+                                        <v-icon v-on="on" small>help</v-icon>
+                                        </template>
+                                        <span>Timestamp</span>
+                                    </v-tooltip>
+                                </th>
+                                <th class="text-left text-no-wrap">
+                                    Call-Id
+                                    <v-tooltip top>
+                                        <template v-slot:activator="{ on }">
+                                        <v-icon v-on="on" small>help</v-icon>
+                                        </template>
+                                        <span>Call-Id</span>
                                     </v-tooltip>
                                 </th>
                                 <th class="text-right text-no-wrap"></th>
@@ -105,9 +132,13 @@
 
 <script>
 import axios from 'axios';
-import PacketsList from './PacketsList.vue'
+import PacketsListItem from './PacketsListItem.vue'
 export default {
     name: 'packetsList',
+
+    components: {
+        PacketsListItem,
+    },
 
     data() {
         return {

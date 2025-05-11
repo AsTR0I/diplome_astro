@@ -83,6 +83,13 @@ export default new Router({
     path: '/sniffer',
     name: 'sniffer',
     component: () => import('../views/sniffer/PacketsList.vue')
+  },
+  {
+    path: '/sniffer/sip-session/:callId',
+    name: 'sniffer.sip.session',
+    component: () => import('../views/sniffer/SipSession.vue'),
+    props: true 
   }
+  
 ]
 });

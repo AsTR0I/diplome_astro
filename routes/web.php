@@ -67,3 +67,4 @@ Route::get('asterisk-commands','AsteriskCommandsController@index');
 Route::post('asterisk-commands/{id}/execute', 'AsteriskCommandsController@execute');
 
 Route::get('sniffer/sip-packets','SnifferController@index');
+Route::get('sniffer/sip-packets/session','SnifferController@sipSession');

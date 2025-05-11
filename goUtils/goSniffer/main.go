@@ -168,7 +168,5 @@ func processAndSavePacket(packet string, db *sql.DB) {
 
 	if err != nil {
 		fmt.Println("DB insert error:", err)
-	} else {
-		fmt.Println("Saved packet: Call-ID=%s, Method=%s\n", callID, method)
 	}
 }

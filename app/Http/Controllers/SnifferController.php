@@ -20,4 +20,10 @@ class SnifferController extends Controller
                 ->paginate(50);
         return SipPacketResource::collection(($packetsList)); 
     }
+
+    public function sipSession(Request $request) {
+        $call_id = $request->get('call_id');
+        $packetsList = SipPacket::where('call_id' , $call_id)->orderBy('captured_at', 'asc')->get();
+        return SipPacketResource::collection($packetsList);
+    }
 }

@@ -1,61 +1,31 @@
 <template>
     <tr>
         <td>
-            {{ sippeer.name }}
+            {{ packet.captured_at || 'N/A' }}
         </td>
         <td>
-            {{ sippeer.type }}
+            {{ packet.method || 'N/A' }}
         </td>
+        <td></td>
+        <td></td>
+        <td></td>
         <td>
-            <v-text-field
-                solo
-                flat
-                dense
-                readonly
-                hide-details
-                style="max-width: 180px"
-                :value="sippeer.secret"
-                :type="passwordVisible ? 'text' : 'password'"
-                v-if="sippeer.secret"
-            >
-                <template v-slot:append>
-                <v-icon
-                    class="mr-2"
-                    @click="passwordVisible = !passwordVisible"
-                >
-                    {{ passwordVisible ? 'visibility_off' : 'visibility' }}
-                </v-icon>
-                <v-icon @click="copyPassword(sippeer)">content_copy</v-icon>
-                </template>
-            </v-text-field>
-        </td>
-        <td>
-            {{ sippeer.host }}
-        </td>
-        <td>
-            {{ sippeer.context }}
-        </td>
-        <td>
-            {{ sippeer.nat }}
-        </td>
-        <td>
-            {{ sippeer.directmedia }}
-        </td>
-        <td>
-            {{ sippeer.ipaddr }}
-        </td>
-        <td>
-            {{ sippeer.port }}
-        </td>
-        <td>
-            {{ sippeer.allow }}
+            {{ packet.call_id || 'N/A' }}
         </td>
         <td class="text-right text-no-wrap">
-            <v-btn title="Изменить" icon :to="{ name: 'sippeers.edit', params: { id: sippeer.id } }">
-                <v-icon>edit</v-icon>
-            </v-btn>
-            <v-btn title="Удалить" icon @click="deleteExtension(sippeer)">
-                <v-icon>delete</v-icon>
+            <v-btn
+                small
+                icon
+                title="Подробнее"
+                target="_blank"
+                :to="{ 
+                    name: 'sniffer.sip.session', 
+                    params: { 
+                        callId: packet.call_id 
+                    }
+                }"
+                >
+                <v-icon>arrow_forward</v-icon>
             </v-btn>
         </td>
     </tr>
@@ -63,10 +33,7 @@
 
 <script>
 export default {
-    name: 'PacketsList',
-
-    data() {
-    },
+    name: 'PacketsListItem',
 
     props: {
         packet: {
@@ -83,7 +50,5 @@ export default {
         }
     },
 
-    methods: {
-    }
 }
 </script>
