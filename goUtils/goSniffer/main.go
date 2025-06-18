@@ -36,6 +36,7 @@ type SipPacket struct {
 }
 
 func main() {
+	fmt.Println("Starting app...")
 	// load config
 	config, err := loadConfig("config/app.json")
 	if err != nil {
@@ -50,7 +51,7 @@ func main() {
 	defer db.Close()
 
 	// start tcpdump
-	cmd := exec.Command("sudo", "tcpdump", "-l", "-A", "-i", config.Interface, "udp", "port", fmt.Sprintf("%d", config.Port))
+	cmd := exec.Command("tcpdump", "-l", "-A", "-i", config.Interface, "udp", "port", fmt.Sprintf("%d", config.Port))
 	stdout, err := cmd.StdoutPipe()
 	if err != nil {
 		log.Fatal("stdout error:", err)
@@ -64,7 +65,7 @@ func main() {
 	var buffer []string
 	for scanner.Scan() {
 		line := scanner.Text()
-		fmt.Println("Received packet line:", line)
+		// fmt.Println("Received packet line:", line)
 
 		if isNewPacketStart(line) && len(buffer) > 0 {
 			// Собрали весь предыдущий пакет — сохраняем

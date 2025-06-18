@@ -155,13 +155,15 @@ export default {
           icon: 'computer',
           title: 'Система',
           route: { name: 'system' }
-        },  {
+        }, 
+        // {
+        //  icon: 'article',
+        //  title: 'Логи',
+        //  route: { name: 'logs' }
+        // }, 
+          {
           icon: 'article',
-          title: 'Логи',
-          route: { name: 'logs' }
-        },   {
-          icon: 'article',
-          title: 'SIP Сниффер',
+          title: 'SIP Сниффер (демо)',
           route: { name: 'sniffer' }
         }, {
           icon: 'settings',

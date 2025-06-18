@@ -35,6 +35,7 @@ class CdrController extends Controller
                 $dst = '%'.$request->input('dst').'%';
                 return $query->where('dst', 'like', $dst);
             })
+            ->where('uniqueid', "!=" , "")
             ->paginate(50);
 
         return CdrResource::collection(($calls));
@@ -45,7 +46,7 @@ class CdrController extends Controller
         $period = $request->input('period', 'today');
         $periodData = $this->getPeriod($period);
     
-        $query = Cdr::orderBy('calldate', 'asc');
+        $query = Cdr::orderBy('calldate', 'asc')->where('uniqueid', "!=" , "");
     
         if ($period !== 'all') { // Только если период не "all", применяем whereBetween
             $query->whereBetween('calldate', [$periodData['start'], $periodData['end']]);
@@ -79,6 +80,7 @@ class CdrController extends Controller
 
         $isPaginate = filter_var($request->input('paginate', false), FILTER_VALIDATE_BOOLEAN);
         $query = Cdr::orderBy('calldate', 'desc')
+            ->where('uniqueid', "!=" , "")
             ->when($request->filled('disposition'), function ($query) use ($request) {
                 return $query->where('disposition', $request->input('disposition'));
             })
