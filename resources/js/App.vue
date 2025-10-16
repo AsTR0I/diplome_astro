@@ -69,6 +69,8 @@
         >
           {{ profile.name }}
         </router-link>
+
+        <span>v.16.10.25</span>
       </v-toolbar-title>
 
       <v-spacer />

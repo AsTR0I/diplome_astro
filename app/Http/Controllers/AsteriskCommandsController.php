@@ -23,10 +23,14 @@ class AsteriskCommandsController extends Controller
     public function execute($id)
     {
         // pw groupmod asterisk -m www
-        $command = AsteriskCommand::findOrFail($id);
+        // chmod 770 /var/run/asterisk/asterisk.ctl
+        // service php-fpm restart
 
+        $command = AsteriskCommand::findOrFail($id);
         $escapedCommand = escapeshellarg($command->command);
-        $output = shell_exec("/usr/local/sbin/asterisk -rx '$escapedCommand'");
+        $fullCommand = "/usr/local/sbin/asterisk -rx $escapedCommand";
+
+        $output = shell_exec($fullCommand);
 
         return response()->json(['output' => $output]);
     }
