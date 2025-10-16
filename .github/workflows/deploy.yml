@@ -35,7 +35,7 @@ jobs:
 
       # ==== DEPLOY ====
       - name: Upload project to FreeBSD
-        uses: appleboy/scp-action@v0.1.7
+        uses: appleboy/scp-action@master
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
@@ -58,14 +58,15 @@ jobs:
             webpack.mix.js
           target: ${{ secrets.APP_DIR }}
           overwrite: true
-          disable_strict_host_key_checking: true
+          strict_host_key_checking: false
 
       - name: Run post-deploy commands
-        uses: appleboy/ssh-action@v1.1.0
+        uses: appleboy/scp-action@master
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_KEY }}
+          port: ${{ secrets.SSH_PORT }}
           script: |
             cd ${{ secrets.APP_DIR }}
             php artisan down
