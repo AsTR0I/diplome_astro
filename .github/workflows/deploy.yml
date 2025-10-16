@@ -57,6 +57,8 @@ jobs:
             package-lock.json
             webpack.mix.js
           target: ${{ secrets.APP_DIR }}
+          overwrite: true
+          disable_strict_host_key_checking: true
 
       - name: Run post-deploy commands
         uses: appleboy/ssh-action@v1.1.0
