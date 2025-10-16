@@ -70,7 +70,7 @@
           {{ profile.name }}
         </router-link>
 
-        <span>v.16.10.25</span>
+        <span>v.16.10.25 2</span>
       </v-toolbar-title>
 
       <v-spacer />

@@ -1,0 +1,75 @@
+name: Deploy Laravel + Vue to astroFreeBSD (root)
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # ==== FRONTEND ====
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Build Vue frontend
+        run: |
+          npm ci
+          npm run production
+
+      # ==== BACKEND ====
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.2
+          extensions: mbstring, bcmath, pdo_mysql, zip
+
+      - name: Install Composer dependencies
+        run: composer install --no-dev --optimize-autoloader
+
+      # ==== DEPLOY ====
+      - name: Upload project to FreeBSD
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          port: ${{ secrets.SSH_PORT }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          source: |
+            app
+            bootstrap
+            config
+            database
+            public
+            resources
+            routes
+            storage
+            artisan
+            composer.json
+            composer.lock
+            package.json
+            package-lock.json
+            webpack.mix.js
+          target: ${{ secrets.APP_DIR }}
+
+      - name: Run post-deploy commands
+        uses: appleboy/ssh-action@v1.1.0
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+            cd ${{ secrets.APP_DIR }}
+            php artisan down
+            composer dump-autoload -o
+            php artisan config:cache
+            php artisan route:cache
+            php artisan view:cache
+            php artisan up
+            chown -R www:www ${{ secrets.APP_DIR }}
