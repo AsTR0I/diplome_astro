@@ -20,7 +20,7 @@ jobs:
 
       - name: Build Vue frontend
         run: |
-          npm ci
+          npm ci --legacy-peer-deps
           npm run production
 
       # ==== BACKEND ====
