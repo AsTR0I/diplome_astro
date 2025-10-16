@@ -31,7 +31,7 @@ jobs:
           extensions: mbstring, bcmath, pdo_mysql, zip
 
       - name: Install Composer dependencies
-        run: composer install --no-dev --optimize-autoloader
+        run: composer install
 
       # ==== DEPLOY ====
       - name: Upload project to FreeBSD
